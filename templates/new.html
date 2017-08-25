@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+    <form action="/characters/create" method="post">
+        <p><input type="text" name="character_name" placeholder="Name"></p>
+        <p>
+            <select name="house">{{ all_houses }}
+                {% for house in all_houses %}
+                <option value="{{ house['id'] }}">{{ house['name'] }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <input type="text" name="new_house" placeholder="Add House">
+        </p>
+        <p><input type="text" name="house_sigil" placeholder="Sigil"></p>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
