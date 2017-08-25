@@ -17,7 +17,7 @@
         <tbody> 
             {% for character in all_characters %}
             <tr>
-                <td>{{character['name']}}</td>
+                <td><a href="/characters/{{ character['id'] }}/show">{{character['name']}}</a></td>
                 <td>{{character['house_name']}}</td>
                 <td>{{character['sigil']}}</td>
             </tr>

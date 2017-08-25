@@ -10,7 +10,7 @@ def index():
 
 @app.route('/characters')
 def characters():
-    query = "SELECT characters.name, houses.name AS house_name, houses.sigil FROM characters JOIN houses ON characters.house_id = houses.id;"
+    query = "SELECT characters.id, characters.name, houses.name AS house_name, houses.sigil FROM characters JOIN houses ON characters.house_id = houses.id;"
     all_characters = mysql.query_db(query)
     return render_template('index.html', all_characters=all_characters)
 
@@ -26,6 +26,7 @@ def create_character():
     if request.form['new_house']:
         # insert a new house record
         # insert a new character record
+        pass
     else:
         query = "INSERT INTO characters (name, house_id, created_at, updated_at) VALUES (:name, :house_id, NOW(), NOW())"
         data = {
@@ -36,5 +37,14 @@ def create_character():
     
     return redirect('/characters')
 
-
+@app.route('/characters/<id>/show')
+def show_character(id):
+    query = "SELECT * FROM characters WHERE id = :id"
+    data = { 'id': id }
+    character = mysql.query_db(query,data)
+    if len(character) > 0:
+        return render_template('show.html', character=character[0])
+    else:
+        return redirect('/characters')
+    
 app.run(debug=True)
